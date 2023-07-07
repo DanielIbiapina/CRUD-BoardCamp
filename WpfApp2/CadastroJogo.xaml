@@ -1,0 +1,19 @@
+﻿<Window x:Class="WpfApp2.CadastroJogo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="CadastroJogo" Height="387" Width="301">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="37,48,0,0" TextWrapping="Wrap" Text="{Binding NomeDoJogo}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="37,87,0,0" TextWrapping="Wrap" Text="{Binding Categoria}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="37,132,0,0" TextWrapping="Wrap" Text="{Binding QuantidadeDisponivel}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Salvar" HorizontalAlignment="Left" Margin="122,175,0,0" VerticalAlignment="Top" Click="bnt_SalvarJogo"/>
+        <Label Content="Nome do Jogo" HorizontalAlignment="Left" Height="32" Margin="37,25,0,0" VerticalAlignment="Top" Width="96"/>
+        <Label Content="Categoria" HorizontalAlignment="Left" Height="32" Margin="37,62,0,0" VerticalAlignment="Top" Width="96"/>
+        <Label Content="Quantidade Disponível" HorizontalAlignment="Left" Height="32" Margin="37,109,0,0" VerticalAlignment="Top" Width="140"/>
+
+    </Grid>
+</Window>

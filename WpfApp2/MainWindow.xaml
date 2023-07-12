@@ -22,7 +22,7 @@
         <!-- Lista de Usuários -->
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="10">
             <TextBlock Text="Usuários" FontWeight="Bold" Margin="0,0,0,5"/>
-            <ListView ItemsSource="{Binding listaUsuarios}" SelectedItem="{Binding UsuarioSelecionado}">
+            <ListView ItemsSource="{Binding ListaUsuarios}" SelectedItem="{Binding UsuarioSelecionado}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}"/>
@@ -31,16 +31,16 @@
                 </ListView.View>
             </ListView>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Button Content="Adicionar" Command="{Binding Add}" Margin="0,0,10,0"/>
-                <Button Content="Remover" Command="{Binding Remove}"/>
+                <Button Content="Adicionar" Command="{Binding AddUsuarioCommand}" Margin="0,0,10,0"/>
+                <Button Content="Remover" Command="{Binding RemoveUsuarioCommand}"/>
             </StackPanel>
-            <Button Content="Editar" Command="{Binding Edita}" Margin="0,10,0,0" Click="Button_Click"/>
+            <Button Content="Editar" Command="{Binding EditarUsuarioCommand}" Margin="0,10,0,0" Click="Button_Click"/>
         </StackPanel>
 
         <!-- Lista de Jogos -->
         <StackPanel Grid.Column="1" Grid.Row="0" Margin="10">
             <TextBlock Text="Jogos" FontWeight="Bold" Margin="0,0,0,5"/>
-            <ListView ItemsSource="{Binding listaJogos}" SelectedItem="{Binding JogoSelecionado}">
+            <ListView ItemsSource="{Binding ListaJogos}" SelectedItem="{Binding JogoSelecionado}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Nome do Jogo" DisplayMemberBinding="{Binding NomeDoJogo}"/>
@@ -50,16 +50,16 @@
                 </ListView.View>
             </ListView>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Button Content="Adicionar" Command="{Binding AddJogo}" Margin="0,0,10,0"/>
-                <Button Content="Remover" Command="{Binding RemoveJogo}" Margin="0,0,10,0" Click="Button_Click_3"/>
-                <Button Content="Editar" Command="{Binding EditaJogo}"/>
+                <Button Content="Adicionar" Command="{Binding AddJogoCommand}" Margin="0,0,10,0"/>
+                <Button Content="Remover" Command="{Binding RemoveJogoCommand}" Margin="0,0,10,0" Click="Button_Click_3"/>
+                <Button Content="Editar" Command="{Binding EditarJogoCommand}"/>
             </StackPanel>
         </StackPanel>
 
         <!-- Lista de Aluguéis -->
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10">
             <TextBlock Text="Aluguéis" FontWeight="Bold" Margin="0,0,0,5"/>
-            <ListView ItemsSource="{Binding listaAlugueis}" SelectedItem="{Binding AluguelSelecionado}">
+            <ListView ItemsSource="{Binding ListaAlugueis}" SelectedItem="{Binding AluguelSelecionado}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Style.Triggers>
@@ -78,10 +78,11 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Adicionar Aluguel" Command="{Binding AddAluguel}" Margin="0,10,0,0" Click="Button_Click_1"/>
-            <Button Content="Remover Aluguel" Command="{Binding FinalizaAluguel}" Margin="0,10,0,0" Click="Button_Click_1"/>
+            <Button Content="Adicionar Aluguel" Command="{Binding RealizarAluguelCommand}" Margin="0,10,0,0" Click="Button_Click_1"/>
+            
             
             
         </StackPanel>
+        
     </Grid>
 </Window>

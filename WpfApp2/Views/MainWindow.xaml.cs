@@ -25,16 +25,9 @@ namespace WpfApp2
     {
         public MainWindow()
         {
-            IBancoDeDados bancoDeDados = new PostgresBancoDeDados("Server=localhost;Port=5432;Database=CRUD;User Id=postgres;Password=dibmm11111;");
-            // Ou
-            // IBancoDeDados bancoDeDados = new MariaDbBancoDeDados("sua_connection_string_do_MariaDB");
-
-            UsuarioRepository usuarioRepository = new UsuarioRepository(bancoDeDados);
-            JogoRepository jogoRepository = new JogoRepository(bancoDeDados);
-            AluguelRepository aluguelRepository = new AluguelRepository(bancoDeDados);
-
+            
             InitializeComponent();
-            DataContext = new MainWindowsVM(usuarioRepository, jogoRepository, aluguelRepository);
+            DataContext = new MainWindowsVM();
         }
 
         public object WebApplication { get; private set; }

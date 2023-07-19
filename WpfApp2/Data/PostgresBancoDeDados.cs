@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 
 
@@ -10,11 +11,15 @@ namespace WpfApp2
     public class PostgresBancoDeDados : IBancoDeDados
     {
         private readonly string connectionString;
+      
 
-        public PostgresBancoDeDados(string connectionString)
+        public PostgresBancoDeDados()
         {
-            this.connectionString = connectionString;
+            connectionString = "Server=localhost;Port=5432;Database=CRUD;User Id=postgres;Password=dibmm11111;";
+           // connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
+
+        
 
         public void AddUsuario(Usuario usuario)
         {

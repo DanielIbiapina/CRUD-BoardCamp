@@ -7,11 +7,12 @@ namespace WpfApp2
 {
     public class MariaDbBancoDeDados : IBancoDeDados
     {
-        private readonly string connectionString;
+        pprivate readonly string connectionString;
 
-        public MariaDbBancoDeDados(string connectionString)
+
+        public PostgresBancoDeDados()
         {
-            this.connectionString = connectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
 
         public void AddUsuario(Usuario usuario)

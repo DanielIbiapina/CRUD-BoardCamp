@@ -29,16 +29,13 @@ namespace WpfApp2
         public Usuario UsuarioSelecionado { get; set; }
         public Jogo JogoSelecionado { get; set; }
         public Aluguel AluguelSelecionado { get; set; }
+        public IBancoDeDados bancoDeDados { get; set; }
 
-        private readonly UsuarioRepository usuarioRepository;
-        private readonly JogoRepository jogoRepository;
-        private readonly AluguelRepository aluguelRepository;
+        //private readonly IBancoDeDados bancoDeDados;
 
-        public MainWindowsVM(UsuarioRepository usuarioRepository, JogoRepository jogoRepository, AluguelRepository aluguelRepository)
+        public MainWindowsVM()
         {
-            this.usuarioRepository = usuarioRepository;
-            this.jogoRepository = jogoRepository;
-            this.aluguelRepository = aluguelRepository;
+            bancoDeDados = new PostgresBancoDeDados();
 
             InicializarComandos();
             CarregarDados();
@@ -57,7 +54,7 @@ namespace WpfApp2
                 {
                     if (ValidarUsuario(novoUsuario))
                     {
-                        usuarioRepository.Add(novoUsuario);
+                        bancoDeDados.AddUsuario(novoUsuario);
                         CarregarUsuarios();
                     }
                     else
@@ -71,9 +68,11 @@ namespace WpfApp2
             {
                 if (UsuarioSelecionado != null)
                 {
-                    usuarioRepository.Remove(UsuarioSelecionado);
+                    bancoDeDados.RemoveUsuario(UsuarioSelecionado);
                     CarregarUsuarios();
                 }
+                
+                
             });
 
             EditarUsuarioCommand = new RelayCommand(_ =>
@@ -89,7 +88,7 @@ namespace WpfApp2
                     {
                         if (ValidarUsuario(usuarioEditado))
                         {
-                            usuarioRepository.Update(usuarioEditado);
+                            bancoDeDados.UpdateUsuario(usuarioEditado);
                             CarregarUsuarios();
                         }
                         else
@@ -111,7 +110,7 @@ namespace WpfApp2
                 {
                     if (ValidarJogo(novoJogo))
                     {
-                        jogoRepository.Add(novoJogo);
+                        bancoDeDados.AddJogo(novoJogo);
                         CarregarJogos();
                     }
                     else
@@ -125,7 +124,7 @@ namespace WpfApp2
             {
                 if (JogoSelecionado != null)
                 {
-                    jogoRepository.Remove(JogoSelecionado);
+                    bancoDeDados.RemoveJogo(JogoSelecionado);
                     CarregarJogos();
                 }
             });
@@ -143,7 +142,7 @@ namespace WpfApp2
                     {
                         if (ValidarJogo(jogoEditado))
                         {
-                            jogoRepository.Update(jogoEditado);
+                            bancoDeDados.UpdateJogo(jogoEditado);
                             CarregarJogos();
                         }
                         else
@@ -171,50 +170,50 @@ namespace WpfApp2
                             DataAluguel = DateTime.Now
                         };
 
-                        aluguelRepository.Add(novoAluguel);
+                        bancoDeDados.AddAluguel(novoAluguel);
                         CarregarAlugueis();
 
                         JogoSelecionado.QuantidadeDisponivel--;
-                        jogoRepository.Update(JogoSelecionado);
+                        bancoDeDados.UpdateJogo(JogoSelecionado);
                         CarregarJogos();
                     }
                 }
             });
         }
 
-        private bool ValidarUsuario(Usuario usuario)
+        public bool ValidarUsuario(Usuario usuario)
         {
             return !string.IsNullOrEmpty(usuario.Nome) && !string.IsNullOrEmpty(usuario.Email) && !string.IsNullOrEmpty(usuario.Senha);
         }
 
-        private bool ValidarJogo(Jogo jogo)
+        public bool ValidarJogo(Jogo jogo)
         {
             return !string.IsNullOrEmpty(jogo.NomeDoJogo) && !string.IsNullOrEmpty(jogo.Categoria) && jogo.QuantidadeDisponivel >= 0;
         }
 
-        private void CarregarDados()
+        public void CarregarDados()
         {
             CarregarUsuarios();
             CarregarJogos();
             CarregarAlugueis();
         }
 
-        private void CarregarUsuarios()
+        public void CarregarUsuarios()
         {
-            ListaUsuarios = new ObservableCollection<Usuario>(usuarioRepository.GetAll());
+            ListaUsuarios = new ObservableCollection<Usuario>(bancoDeDados.GetUsuarios());
             OnPropertyChanged(nameof(ListaUsuarios));
         }
 
-        
-        private void CarregarJogos()
+
+        public void CarregarJogos()
         {
-            ListaJogos = new ObservableCollection<Jogo>(jogoRepository.GetAll());
+            ListaJogos = new ObservableCollection<Jogo>(bancoDeDados.GetJogos());
             OnPropertyChanged(nameof(ListaJogos));
         }
 
-        private void CarregarAlugueis()
+        public void CarregarAlugueis()
         {
-            ListaAlugueis = new ObservableCollection<Aluguel>(aluguelRepository.GetAll());
+            ListaAlugueis = new ObservableCollection<Aluguel>(bancoDeDados.GetAlugueis());
             OnPropertyChanged(nameof(ListaAlugueis));
         }
 
